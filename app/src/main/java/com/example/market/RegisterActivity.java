@@ -5,16 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,6 +38,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
     private void createAccount(){
+        System.out.println("i am in onCreateAccount");
         String username=nameInput.getText().toString();
         String phone=phoneInput.getText().toString();
         String password=passwordInput.getText().toString();
@@ -56,24 +53,25 @@ public class RegisterActivity extends AppCompatActivity {
             loadingBar.setTitle("Creating an account");
             loadingBar.setMessage("please wait");
             loadingBar.setCanceledOnTouchOutside(false);
+            System.out.println("i am loading bar");
+            //loadingBar.show();
+            this.ValidatePhone(username,phone,password);
             loadingBar.show();
-
-            ValidatePhone(username,phone,password);
         }
     }
-    private void ValidatePhone(String username,String phone,String password){
-        final DatabaseReference Rootref;
-        Rootref=FirebaseDatabase.getInstance().getReference();
-
-        Rootref.addListenerForSingleValueEvent(new ValueEventListener(){
+    private void ValidatePhone(String username,String phone,String password) {
+        final DatabaseReference databaseReference=FirebaseDatabase.getInstance("https://market-72816-default-rtdb.europe-west1.firebasedatabase.app/")
+                .getReference();
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener(){
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                System.out.println("i am in onChange");
                 if (!(snapshot.child("Users").child(phone).exists())){
                     HashMap<String,Object>userDataMap=new HashMap<>();
                     userDataMap.put("phone",phone);
                     userDataMap.put("name",username);
                     userDataMap.put("password",password);
-                    Rootref.child("Users").child(phone).updateChildren(userDataMap).addOnCompleteListener((OnCompleteListener<Void>) task -> {
+                    databaseReference.child("Users").child(phone).updateChildren(userDataMap).addOnCompleteListener(task -> {
                         if(task.isSuccessful()){
                             loadingBar.dismiss();
                             Toast.makeText(RegisterActivity.this,"Registration  successful",Toast.LENGTH_SHORT).show();
@@ -82,10 +80,13 @@ public class RegisterActivity extends AppCompatActivity {
                         }else{
                             loadingBar.dismiss();
                             Toast.makeText(RegisterActivity.this,"Error",Toast.LENGTH_SHORT).show();
+                            System.out.println("i in error" );
                         }
 
                     });
                 }else{
+                    System.out.println("i am already registered");
+
                     loadingBar.dismiss();
                     Toast.makeText(RegisterActivity.this,"phone"+phone+"already registered",Toast.LENGTH_SHORT).show();
                     Intent loginIntent=new Intent(RegisterActivity.this,LoginActivity.class);
@@ -95,8 +96,12 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(RegisterActivity.this,"ok",Toast.LENGTH_SHORT);
+                loadingBar.dismiss();
             }
         });
+
+        System.out.println("in valid");
     }
+
 }

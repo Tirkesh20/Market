@@ -17,19 +17,13 @@ private Button registerButton;
         setContentView(R.layout.activity_main);
         registerButton=(Button)findViewById(R.id.main_register_btn);
         loginButton=(Button)findViewById(R.id.main_login_btn);
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent loginIntent=new Intent(MainActivity.this,LoginActivity.class);
-                startActivity(loginIntent);
-            }
+        loginButton.setOnClickListener(v -> {
+            Intent loginIntent=new Intent(MainActivity.this,LoginActivity.class);
+            startActivity(loginIntent);
         });
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent registerIntent=new Intent(MainActivity.this,RegisterActivity.class);
-                startActivity(registerIntent);
-            }
+        registerButton.setOnClickListener(v -> {
+            Intent registerIntent=new Intent(MainActivity.this,RegisterActivity.class);
+            startActivity(registerIntent);
         });
     }
 }
