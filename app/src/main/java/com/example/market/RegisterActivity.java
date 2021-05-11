@@ -53,8 +53,6 @@ public class RegisterActivity extends AppCompatActivity {
             loadingBar.setTitle("Creating an account");
             loadingBar.setMessage("please wait");
             loadingBar.setCanceledOnTouchOutside(false);
-            System.out.println("i am loading bar");
-            //loadingBar.show();
             this.ValidatePhone(username,phone,password);
             loadingBar.show();
         }
