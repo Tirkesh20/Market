@@ -13,18 +13,23 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.market.model.User;
+import com.example.market.prevalent.Prevalent;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.rey.material.widget.CheckBox;
+
+import io.paperdb.Paper;
 
 public class LoginActivity extends AppCompatActivity {
     private Button loginButton;
     private EditText nameInput, phoneInput, passwordInput;
     private ProgressDialog loadingBar;
-
     private String parentUserName = "Users";
+    private CheckBox rememberMe;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +39,8 @@ public class LoginActivity extends AppCompatActivity {
         this.phoneInput = (EditText) findViewById(R.id.login_phone_input);
         passwordInput = (EditText) findViewById(R.id.login_password_input);
         loadingBar = new ProgressDialog(this);
+        rememberMe=(CheckBox)findViewById(R.id.login_checkbox);
+        Paper.init(this);
         loginButton.setOnClickListener(v -> {
             this.loginUser();
         });
@@ -58,6 +65,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void ValidateUser(String phone, String password) {
+        if (rememberMe.isChecked()){
+            Paper.book().write(Prevalent.userPhoneKey,phone);
+            Paper.book().write(Prevalent.userPasswordKey,password);
+        }
         final DatabaseReference databaseReference;
         databaseReference = FirebaseDatabase.getInstance("https://market-72816-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
