@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.market.model.User;
@@ -29,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     private ProgressDialog loadingBar;
     private String parentUserName = "Users";
     private CheckBox rememberMe;
+    private TextView adminLink,notAdminLink;
 
 
     @Override
@@ -36,14 +38,35 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         this.loginButton = (Button) findViewById(R.id.login_btn);
+
         this.phoneInput = (EditText) findViewById(R.id.login_phone_input);
+
         passwordInput = (EditText) findViewById(R.id.login_password_input);
         loadingBar = new ProgressDialog(this);
+
+        adminLink=(TextView) findViewById(R.id.admin_panel_link);
+        notAdminLink=(TextView) findViewById(R.id.client_panel_link);
+
         rememberMe=(CheckBox)findViewById(R.id.login_checkbox);
         Paper.init(this);
         loginButton.setOnClickListener(v -> {
             this.loginUser();
         });
+
+        notAdminLink.setOnClickListener(v -> {
+            adminLink.setVisibility(View.VISIBLE);
+            notAdminLink.setVisibility(View.INVISIBLE);
+            loginButton.setText("Login");
+            parentUserName="Users";
+        });
+
+        adminLink.setOnClickListener(v -> {
+          adminLink.setVisibility(View.INVISIBLE);
+          notAdminLink.setVisibility(View.VISIBLE);
+          loginButton.setText("Admin entering");
+          parentUserName="Admin";
+        });
+
     }
 
     private void loginUser() {
@@ -79,23 +102,28 @@ public class LoginActivity extends AppCompatActivity {
                      User userData=snapshot.child(parentUserName).child(phone).getValue(User.class);
                      if (userData.getPhone().equals(phone)){
                          if (userData.getPassword().equals(password)){
-                             loadingBar.dismiss();
-                             Toast.makeText(LoginActivity.this,"Logged in",Toast.LENGTH_SHORT);
-                             Intent homeActivity= new Intent(LoginActivity.this,HomeActivity.class);
-                             startActivity(homeActivity);
-
+                            if (parentUserName.equals("Users")){
+                                loadingBar.dismiss();
+                                Toast.makeText(LoginActivity.this,"Logged in",Toast.LENGTH_SHORT);
+                                Intent homeActivity= new Intent(LoginActivity.this,HomeActivity.class);
+                                startActivity(homeActivity);
+                            }else if (parentUserName.equals("Admin")){
+                                loadingBar.dismiss();
+                                Toast.makeText(LoginActivity.this,"Welcome admin",Toast.LENGTH_SHORT);
+                                Intent adminActivity= new Intent(LoginActivity.this,AdminActivity.class);
+                                startActivity(adminActivity);
+                            }
                          }else{
                              loadingBar.dismiss();
                              Toast.makeText(LoginActivity.this," Incorrect password",Toast.LENGTH_SHORT);
                          }
                      }
-
-                }else {
+                    }else {
                     loadingBar.dismiss();
                     Toast.makeText(LoginActivity.this,"account wasn t found",Toast.LENGTH_SHORT);
                     Intent registerIntent=new Intent(LoginActivity.this,RegisterActivity.class);
                     startActivity(registerIntent);
-                 }
+                    }
             }
 
             @Override
