@@ -1,4 +1,4 @@
-package com.example.market;
+package com.example.market.users;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +13,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.market.ProductCategory;
+import com.example.market.admin.AdminActivity;
+import com.example.market.HomeActivity;
+import com.example.market.R;
 import com.example.market.model.User;
 import com.example.market.prevalent.Prevalent;
 import com.google.firebase.database.DataSnapshot;
@@ -105,12 +109,13 @@ public class LoginActivity extends AppCompatActivity {
                             if (parentUserName.equals("Users")){
                                 loadingBar.dismiss();
                                 Toast.makeText(LoginActivity.this,"Logged in",Toast.LENGTH_SHORT);
-                                Intent homeActivity= new Intent(LoginActivity.this,HomeActivity.class);
+                                Intent homeActivity= new Intent(LoginActivity.this, HomeActivity.class);
                                 startActivity(homeActivity);
                             }else if (parentUserName.equals("Admin")){
                                 loadingBar.dismiss();
                                 Toast.makeText(LoginActivity.this,"Welcome admin",Toast.LENGTH_SHORT);
-                                Intent adminActivity= new Intent(LoginActivity.this,AdminActivity.class);
+                                System.out.println("admin");
+                                Intent adminActivity= new Intent(LoginActivity.this, ProductCategory.class);
                                 startActivity(adminActivity);
                             }
                          }else{
@@ -121,7 +126,7 @@ public class LoginActivity extends AppCompatActivity {
                     }else {
                     loadingBar.dismiss();
                     Toast.makeText(LoginActivity.this,"account wasn t found",Toast.LENGTH_SHORT);
-                    Intent registerIntent=new Intent(LoginActivity.this,RegisterActivity.class);
+                    Intent registerIntent=new Intent(LoginActivity.this, RegisterActivity.class);
                     startActivity(registerIntent);
                     }
             }

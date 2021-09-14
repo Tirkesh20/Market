@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import com.example.market.model.User;
 import com.example.market.prevalent.Prevalent;
+import com.example.market.users.LoginActivity;
+import com.example.market.users.RegisterActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,11 +36,11 @@ private Button registerButton;
         Paper.init(this);
         loadingBar = new ProgressDialog(this);
         loginButton.setOnClickListener(v -> {
-            Intent loginIntent=new Intent(MainActivity.this,LoginActivity.class);
+            Intent loginIntent=new Intent(MainActivity.this, LoginActivity.class);
             startActivity(loginIntent);
         });
         registerButton.setOnClickListener(v -> {
-            Intent registerIntent=new Intent(MainActivity.this,RegisterActivity.class);
+            Intent registerIntent=new Intent(MainActivity.this, RegisterActivity.class);
             startActivity(registerIntent);
         });
         String userPhoneKey=Paper.book().read(Prevalent.userPhoneKey);

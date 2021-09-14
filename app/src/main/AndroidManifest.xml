@@ -10,10 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Market">
         <activity android:name=".ProductCategory"></activity>
-        <activity android:name=".AdminActivity" />
+        <activity android:name=".admin.AdminActivity" />
         <activity android:name=".HomeActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".users.RegisterActivity" />
+        <activity android:name=".users.LoginActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

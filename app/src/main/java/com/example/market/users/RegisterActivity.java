@@ -1,4 +1,4 @@
-package com.example.market;
+package com.example.market.users;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.market.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -53,8 +54,8 @@ public class RegisterActivity extends AppCompatActivity {
             loadingBar.setTitle("Creating an account");
             loadingBar.setMessage("please wait");
             loadingBar.setCanceledOnTouchOutside(false);
-            this.ValidatePhone(username,phone,password);
             loadingBar.show();
+            this.ValidatePhone(username,phone,password);
         }
     }
     private void ValidatePhone(String username,String phone,String password) {
@@ -73,7 +74,7 @@ public class RegisterActivity extends AppCompatActivity {
                         if(task.isSuccessful()){
                             loadingBar.dismiss();
                             Toast.makeText(RegisterActivity.this,"Registration  successful",Toast.LENGTH_SHORT).show();
-                            Intent loginIntent=new Intent(RegisterActivity.this,LoginActivity.class);
+                            Intent loginIntent=new Intent(RegisterActivity.this, LoginActivity.class);
                             startActivity(loginIntent);
                         }else{
                             loadingBar.dismiss();
