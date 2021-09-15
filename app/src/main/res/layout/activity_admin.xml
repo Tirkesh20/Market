@@ -7,25 +7,28 @@
     tools:context=".admin.AdminActivity">
 
     <ImageView
-        android:id="@+id/select_product"
+        android:id="@+id/select_image"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:src="@drawable/monitor"
+        android:src="@drawable/headphone"
         android:scaleType="centerCrop"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
+        android:padding="10dp"
      />
     <EditText
         android:id="@+id/product_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/select_product"
+        android:layout_below="@+id/select_image"
         android:hint="Name of the product"
         android:padding="10dp"
+        android:paddingTop="20dp"
         android:background="@drawable/input_design"
         android:layout_marginTop="5dp"
         android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"        android:inputType="textMultiLine"/>
+        android:layout_marginLeft="20dp"
+        android:inputType="textMultiLine"/>
 
     <EditText
         android:id="@+id/product_description"

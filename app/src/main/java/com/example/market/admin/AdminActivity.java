@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -46,9 +47,7 @@ private ProgressDialog loadingBar;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
         init();
-        productImage.setOnClickListener(v -> {
-            openGallery();
-        });
+        productImage.setOnClickListener(v -> openGallery());
         addNewProduct.setOnClickListener(v -> {
             validateProductData();
         });
@@ -76,9 +75,9 @@ private ProgressDialog loadingBar;
 
     private void storeProductInformation() {
         Calendar calendar= Calendar.getInstance();
-        SimpleDateFormat dateFormat=new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat dateFormat=new SimpleDateFormat("ddMMyyyy");
         this.currentData=dateFormat.format(calendar.getTime());
-        SimpleDateFormat time=new SimpleDateFormat("HH:mm:ss");
+        SimpleDateFormat time=new SimpleDateFormat("HHmmss");
         this.currentTime=dateFormat.format(calendar.getTime());
         productRandomKey=currentData+currentTime;
         StorageReference filepath=imageReference.child(imageUri.getLastPathSegment()+productRandomKey+".jpeg");
@@ -144,7 +143,7 @@ private ProgressDialog loadingBar;
 
     private void init(){
         categoryName=getIntent().getExtras().get("category").toString();
-    productImage=findViewById(R.id.monitor);
+    productImage=findViewById(R.id.select_image);
     productName=findViewById(R.id.product_name);
     productDescription=findViewById(R.id.product_description);
     productPrice=findViewById(R.id.product_price);

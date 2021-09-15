@@ -9,9 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Market">
-        <activity android:name=".ProductCategory"></activity>
+        <activity
+            android:name=".HomeActivity"
+            android:label="@string/title_activity_home"
+            android:theme="@style/Theme.Market.NoActionBar"></activity>
+        <activity android:name=".ProductCategory" />
         <activity android:name=".admin.AdminActivity" />
-        <activity android:name=".HomeActivity" />
         <activity android:name=".users.RegisterActivity" />
         <activity android:name=".users.LoginActivity" />
         <activity android:name=".MainActivity">

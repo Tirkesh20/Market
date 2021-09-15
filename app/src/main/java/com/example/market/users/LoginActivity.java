@@ -13,9 +13,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.market.ProductCategory;
-import com.example.market.admin.AdminActivity;
 import com.example.market.HomeActivity;
+import com.example.market.ProductCategory;
 import com.example.market.R;
 import com.example.market.model.User;
 import com.example.market.prevalent.Prevalent;
