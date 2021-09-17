@@ -10,9 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Market">
         <activity
+            android:name=".users.SettingsActivity"
+            android:exported="true" />
+        <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_home"
-            android:theme="@style/Theme.Market.NoActionBar"></activity>
+            android:theme="@style/Theme.Market.NoActionBar" />
         <activity android:name=".ProductCategory" />
         <activity android:name=".admin.AdminActivity" />
         <activity android:name=".users.RegisterActivity" />
