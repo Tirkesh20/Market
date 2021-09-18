@@ -1,12 +1,14 @@
 package com.example.market;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.TextView;
 
+import com.example.market.model.Products;
 import com.example.market.prevalent.Prevalent;
 import com.example.market.users.LoginActivity;
 import com.example.market.users.SettingsActivity;
@@ -15,8 +17,11 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
+import com.theartofdev.edmodo.cropper.CropImage;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.view.GravityCompat;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -92,36 +97,36 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        FirebaseRecyclerOptions<Products> options = new FirebaseRecyclerOptions.Builder<Products>()
-                .setQuery(ProductsRef, Products.class).build();
-
-        FirebaseRecyclerAdapter<Products, ProductViewHolder> adapter = new FirebaseRecyclerAdapter<Products, ProductViewHolder>(options) {
-            @Override
-            protected void onBindViewHolder(@NonNull @NotNull ProductViewHolder holder, int i, @NonNull @NotNull Products model) {
-                holder.txtProductName.setText(model.getPname());
-                holder.txtProductDescription.setText(model.getDescription());
-                holder.txtProductPrice.setText("Стоимость = " + model.getPrice() + " рублей");
-                Picasso.get().load(model.getImage()).into(holder.imageView);
-            }
-
-            @NonNull
-            @NotNull
-            @Override
-            public ProductViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_items_layout, parent, false);
-                ProductViewHolder holder = new ProductViewHolder(view);
-                return holder;
-            }
-        };
-
-        recyclerView.setAdapter(adapter);
-        adapter.startListening();
-
-    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//
+//        FirebaseRecyclerOptions<Products> options = new FirebaseRecyclerOptions.Builder<Products>()
+//                .setQuery(ProductsRef, Products.class).build();
+//
+//        FirebaseRecyclerAdapter<Products, ProductViewHolder> adapter = new FirebaseRecyclerAdapter<Products, ProductViewHolder>(options) {
+//            @Override
+//            protected void onBindViewHolder(@NonNull @NotNull ProductViewHolder holder, int i, @NonNull @NotNull Products model) {
+//                holder.txtProductName.setText(model.getPname());
+//                holder.txtProductDescription.setText(model.getDescription());
+//                holder.txtProductPrice.setText("Cost = " + model.getPrice() + " рублей");
+//                Picasso.get().load(model.getImage()).into(holder.imageView);
+//            }
+//
+//            @NonNull
+//            @NotNull
+//            @Override
+//            public ProductViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+//                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_items_layout, parent, false);
+//                ProductViewHolder holder = new ProductViewHolder(view);
+//                return holder;
+//            }
+//        };
+//
+//        recyclerView.setAdapter(adapter);
+//        adapter.startListening();
+//
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -135,14 +140,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.nav_cart){
-            Intent categories=new Intent(HomeActivity.this, SettingsActivity.class);
-            startActivity(loginIntent);
+            Intent cart=new Intent(HomeActivity.this, SettingsActivity.class);
+            startActivity(cart);
         } else if(id == R.id.nav_orders){
-            Intent categories=new Intent(HomeActivity.this, SettingsActivity.class);
-            startActivity(loginIntent);
+            Intent orders=new Intent(HomeActivity.this, SettingsActivity.class);
+            startActivity(orders);
         } else if(id == R.id.nav_categories){
             Intent categories=new Intent(HomeActivity.this, SettingsActivity.class);
-            startActivity(loginIntent);
+            startActivity(categories);
 
         } else if(id == R.id.nav_settings){
             Intent loginIntent = new Intent(HomeActivity.this, SettingsActivity.class);
@@ -164,4 +169,3 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 //        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
 //                || super.onSupportNavigateUp();
 //    }
-}

@@ -20,7 +20,7 @@
                android:layout_width="match_parent"
                android:layout_height="match_parent">
                <TextView
-                   android:id="@+id/close_settings_tw"
+                   android:id="@+id/close_settings_tv"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:text="Close"
@@ -32,7 +32,7 @@
                    android:layout_alignParentRight="true" />
 
                <TextView
-                   android:id="@+id/save_settings_tw"
+                   android:id="@+id/save_settings_tv"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:text="Save"
